@@ -19,10 +19,11 @@ void yyerror(const char *msg);
 %token LPAREN
 %token RPAREN
 %token IDENT
-%token ASSIGN
 %token PRINT
+%token CONCAT
 %token COMMA
-
+%token STR
+%token ASSIGN
 
 %start program
 
@@ -40,6 +41,7 @@ stmt_list
 stmt
     : IDENT ASSIGN expr
     | PRINT LPAREN exprlist RPAREN
+    | CONCAT LPAREN exprlist RPAREN
     | expr
     ;
 
@@ -54,6 +56,8 @@ expr
     | expr DIV expr
     | LPAREN expr RPAREN 
     | NUM
+    | STR
+    | IDENT
     ;
 
 %%
