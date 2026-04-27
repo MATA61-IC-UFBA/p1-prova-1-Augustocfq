@@ -1,19 +1,34 @@
 %{
-#include "prova1.tab.h"
-#include <stdlib.h>
-#include <string.h>
+    #include "prova1.tab.h"
+    #include <stdlib.h>
+    #include <string.h>
 
-void yyerror(const char *msg);
-int yylex();
+    void yyerror(const char *msg);
+    int yylex();
 %}
 
 %option noyywrap
 
+NUMERO [0-9]+(.[0-9]+)?
+COMENTARIO "//".*
+
 %%
 
-/* copiar E2 e fazer as extensões */
+[ \t]+ ;
+{Comentario} ;
 
+{NUMERO} {return NUM;}
 
-.            { return ERROR; }
+"-" {return MINUS;}
+"*" {return TIMES;}
+"+" {return PLUS;}
+"/" {return DIV;}
+"," {return COMMA;}
+
+"(" {return LPAREN;}
+")" {return RPAREN;}
+
+. {return ERROR;}
+\n {return EOL;}
 
 %%
