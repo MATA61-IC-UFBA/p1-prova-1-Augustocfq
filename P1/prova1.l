@@ -9,17 +9,18 @@
 
 %option noyywrap
 
-NUMERO [0-9]+(.[0-9]+)?
-STRING \".*\"
-IDENTIFICADOR [A-Za-z][0-9A-Za-z]*
+NUMERO [0-9]+(\.[0-9]+)?
+STRING \"[^\"]*\"
+IDENTIFICADOR [A-Za-z][A-Za-z0-9_]*
 
 %%
 
-[ \t]+ ;
+[ \t\r\n]+ ;
 "//"[.]* ;
 
 "print" {return PRINT;}
 "concat" {return CONCAT;}
+"length" {return LENGTH;}
 
 "-" {return MINUS;}
 "*" {return TIMES;}
@@ -36,6 +37,5 @@ IDENTIFICADOR [A-Za-z][0-9A-Za-z]*
 {STRING} {return STR;}
 
 . {return ERROR;}
-\n {return EOL;}
 
 %%
